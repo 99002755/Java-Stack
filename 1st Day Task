@@ -1,0 +1,57 @@
+import java.util.*;
+public class Main
+{
+    public static void highestFeedback(int[] metlife, int[] hardfort, int size){
+        int[] res=new int[2*size];
+        int resSize=size;
+        for(int i=0;i<size;i++){
+            res[i]=metlife[i];
+        }
+        for(int i=0;i<size;i+=2){
+            int id=hardfort[i],found=0;
+            for(int j=0;j<size;j+=2){
+                if(res[j]==id){
+                    if(res[j+1]<hardfort[i+1]){
+                        res[j+1]=hardfort[i+1];
+                    }
+                    found=1;
+                }
+            }
+            if(found==0){
+                res[resSize++]=hardfort[i];
+                res[resSize++]=hardfort[i+1];
+            }
+        }
+        System.out.println("Result Array: ");
+        for(int i=0;i<resSize;i++){
+            System.out.println(res[i]);
+        }
+    }
+    public static void main(String[] args) {
+        Scanner scan= new Scanner(System.in);
+        int size= scan.nextInt();
+        if(size<0){
+            System.out.println("Invalid array size");
+            return;
+        }
+        else{
+            int[] metlife=new int[size];
+            int[] hardfort=new int[size];
+            for(int i=0;i<size;i++){
+                metlife[i]=scan.nextInt();
+                if(metlife[i]<0){
+                    System.out.println("Invalid number");
+                    return;
+                }
+            }
+            for(int i=0;i<size;i++){
+                hardfort[i]=scan.nextInt();
+                if(hardfort[i]<0){
+                    System.out.println("Invalid number");
+                    return;
+                }
+            }
+            highestFeedback(metlife,hardfort,size);
+        }
+    }
+}
